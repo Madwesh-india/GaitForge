@@ -1,9 +1,10 @@
 #include <render_utils.hpp>
 #include <iostream>
 
-Screen::Screen(const char *title, int w, int h, SDL_WindowFlags flags): 
+Screen::Screen(const char *title, int w, int h, float m_2_pxl_scale, SDL_WindowFlags flags): 
 window(SDL_CreateWindow(title, w, h, flags), SDL_DestroyWindow),
-renderer(SDL_CreateRenderer(window.get(), NULL), SDL_DestroyRenderer)
+renderer(SDL_CreateRenderer(window.get(), NULL), SDL_DestroyRenderer),
+_m_2_pxl_scale(m_2_pxl_scale)
 {
     if (!window) {
         throw std::runtime_error(SDL_GetError());
@@ -18,6 +19,8 @@ renderer(SDL_CreateRenderer(window.get(), NULL), SDL_DestroyRenderer)
     SDL_GetDisplayBounds(display, &rect);
     std::cout << "Display size: " << rect.w << " x " << rect.h << "\n";
 
+    offset << rect.w/2, rect.h/2;
+    scale << m_2_pxl_scale, 0.f, 0.f, -m_2_pxl_scale;
 
     SDL_SetRenderScale(renderer.get(), 1., 1.);
     SDL_SetRenderDrawBlendMode(renderer.get(), SDL_BLENDMODE_BLEND);
@@ -59,6 +62,9 @@ void Screen::_get_vertices(line_t &line)
     _aux_p2.x() = line.x2;
     _aux_p2.y() = line.y2; 
 
+    _aux_p1 = this->_meters_2_screen(_aux_p1);
+    _aux_p2 = this->_meters_2_screen(_aux_p2);
+
     Eigen::Vector2f dir = _aux_p2 - _aux_p1;
     Eigen::Vector2f perp(-dir.y(), dir.x());  // perpendicular vector
     
@@ -95,6 +101,11 @@ Eigen::Matrix2f Screen::_get_rotation(float rad)
     rot << cos(rad), -sin(rad),
            sin(rad),  cos(rad);
     return rot;
+}
+
+Eigen::Vector2f Screen::_meters_2_screen(Eigen::Vector2f pos)
+{
+    return scale*pos + offset;
 }
 
 bool Screen::loop()

@@ -7,11 +7,11 @@ int main(int argc, char *argv[])
         return 1;
     }
     const char title[] = "Test";
-    Screen disp(title, 0, 0);
+    Screen disp(title, 0, 0, 100);
     
-    disp.addObjects(line_t{0.0f, 0.0f, 100.0f, 50.0f, 255, 0, 0});
-    disp.addObjects(line_t{100.0f, 50.0f, 50.0f, 100.0f, 0, 255, 0});
-    disp.addObjects(line_t{50.0f, 100.0f, 50.0f, 50.0f, 255, 255, 0});
+    disp.addObjects(line_t{0.0f, 0.0f, 1.0f, 0.50f, 255, 0, 0});
+    disp.addObjects(line_t{1.0f, 0.50f, 0.50f, 1.0f, 0, 255, 0});
+    disp.addObjects(line_t{0.50f, 1.0f, 0.50f, 0.50f, 255, 255, 0});
 
     bool running = true;
 

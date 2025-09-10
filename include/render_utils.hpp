@@ -26,7 +26,7 @@ using RendererPtr = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)
 
 class Screen{
     public:
-        Screen(const char *title, int w, int h, SDL_WindowFlags flags = SDL_WINDOW_FULLSCREEN);
+        Screen(const char *title, int w, int h, float m_2_pxl_scale, SDL_WindowFlags flags = SDL_WINDOW_FULLSCREEN);
         ~Screen();
 
         bool loop();
@@ -36,6 +36,8 @@ class Screen{
     private:
         WindowPtr window;
         RendererPtr renderer;
+        const int _m_2_pxl_scale;
+
         SDL_Event event;
 
         std::vector<line_t> objects;
@@ -43,11 +45,16 @@ class Screen{
         SDL_Rect rect;
         float thickness = 10;
 
+        Eigen::Matrix2f scale;
+        Eigen::Vector2f offset;
+
         Eigen::Vector2f _aux_p1, _aux_p2;
         SDL_Vertex _aux_verts[CURVE_POINTS];
 
         void _get_vertices(line_t &line);
         Eigen::Matrix2f _get_rotation(float rad);
+
+        Eigen::Vector2f _meters_2_screen(Eigen::Vector2f pos);
 
         int indices[CURVE_INDEXS];
 };
