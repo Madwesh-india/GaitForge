@@ -3,6 +3,10 @@
 #include <stdbool.h>
 #include <memory>
 #include <vector>
+#include <eigen3/Eigen/Core>
+
+constexpr int indices[6] = {0, 1, 2,  
+                          2, 1, 3};
 
 typedef struct {
     float x1;
@@ -26,6 +30,8 @@ class Screen{
 
         bool loop();
         bool addObjects(line_t line);
+        void get_vertices(line_t &line);
+        
 
     private:
         WindowPtr window;
@@ -35,4 +41,8 @@ class Screen{
         std::vector<line_t> objects;
 
         int w, h;
+        float thickness = 10;
+
+        Eigen::Vector2f _aux_p1, _aux_p2;
+        SDL_Vertex _aux_verts[4];
 };

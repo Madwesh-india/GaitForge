@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     
     disp.addObjects(line_t{0.0f, 0.0f, 100.0f, 50.0f, 255, 0, 0});
     disp.addObjects(line_t{100.0f, 50.0f, 50.0f, 100.0f, 0, 255, 0});
+    disp.addObjects(line_t{50.0f, 100.0f, 50.0f, 50.0f, 255, 255, 0});
 
     bool running = true;
 
