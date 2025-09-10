@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
         return 1;
     }
     const char title[] = "Test";
-    Screen disp(title, 800, 400);
+    Screen disp(title, 0, 0);
     
     disp.addObjects(line_t{0.0f, 0.0f, 100.0f, 50.0f, 255, 0, 0});
     disp.addObjects(line_t{100.0f, 50.0f, 50.0f, 100.0f, 0, 255, 0});

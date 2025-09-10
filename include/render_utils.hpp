@@ -5,8 +5,9 @@
 #include <vector>
 #include <eigen3/Eigen/Core>
 
-constexpr int indices[6] = {0, 1, 2,  
-                          2, 1, 3};
+constexpr int CURVE_RESOLUTION = 6;
+constexpr int CURVE_POINTS = (CURVE_RESOLUTION*2);
+constexpr int CURVE_INDEXS = (CURVE_RESOLUTION*2 - 2)*3;
 
 typedef struct {
     float x1;
@@ -30,7 +31,6 @@ class Screen{
 
         bool loop();
         bool addObjects(line_t line);
-        void get_vertices(line_t &line);
         
 
     private:
@@ -40,9 +40,14 @@ class Screen{
 
         std::vector<line_t> objects;
 
-        int w, h;
+        SDL_Rect rect;
         float thickness = 10;
 
         Eigen::Vector2f _aux_p1, _aux_p2;
-        SDL_Vertex _aux_verts[4];
+        SDL_Vertex _aux_verts[CURVE_POINTS];
+
+        void _get_vertices(line_t &line);
+        Eigen::Matrix2f _get_rotation(float rad);
+
+        int indices[CURVE_INDEXS];
 };
