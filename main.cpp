@@ -1,4 +1,5 @@
 #include "render_utils.hpp"
+#include "line.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -8,10 +9,9 @@ int main(int argc, char *argv[])
     }
     const char title[] = "Test";
     Screen disp(title, 0, 0, 100);
+    Line line1(1, 0.1, disp);
     
-    disp.addObjects(line_t{0.0f, 0.0f, 1.0f, 0.50f, 255, 0, 0});
-    disp.addObjects(line_t{1.0f, 0.50f, 0.50f, 1.0f, 0, 255, 0});
-    disp.addObjects(line_t{0.50f, 1.0f, 0.50f, 0.50f, 255, 255, 0});
+    disp.addObjects(line1);
 
     bool running = true;
 

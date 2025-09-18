@@ -1,22 +1,24 @@
 cmake_minimum_required(VERSION 3.16)
 project(GaitForge LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Eigen
 find_package(Eigen3 REQUIRED)
-include_directories(${Eigen3_INCLUDE_DIRS})
 
-# Add SDL submodule
+# SDL
 add_subdirectory(vendored/SDL)
 
-include_directories(include)
-
-# Your main executable
+# Main executable
 add_executable(GaitForge 
-                main.cpp 
-                src/render_utils.cpp
+    main.cpp 
+    src/render_utils.cpp
+    src/line.cpp
 )
 
-# Link SDL3 to your project
-target_link_libraries(GaitForge PRIVATE SDL3::SDL3)
+# Include directories
+target_include_directories(GaitForge PRIVATE include)
+
+# Link libraries
+target_link_libraries(GaitForge PRIVATE SDL3::SDL3 Eigen3::Eigen)
