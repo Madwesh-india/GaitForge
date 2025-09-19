@@ -29,8 +29,15 @@ class Line
         double const _length, _thickness;
         Screen &_context;
 
-        ComplexD end_point_1, end_point_2;
-        Eigen::VectorXcd const_curve_points_1, const_curve_points_2, update_curve_points_1, update_curve_points_2;
+        ComplexD link_pose, rot_trasform;
+        ComplexD local_point_2;
+        Eigen::VectorXcd const_curve_points_1, const_curve_points_2;
+
+        ComplexD global_point_1, global_point_2;
+        Eigen::VectorXcd global_curve_points_1, global_curve_points_2;
+
+        Eigen::VectorXcd pxl_render_points_1, pxl_render_points_2;
+
 
         ComplexD offset;
         int indices[CURVE_INDEXS];

@@ -1,4 +1,4 @@
-#pragma ONCE
+#pragma once
 #include <eigen3/Eigen/Core>
 #include <cmath>
 #include <ranges>
